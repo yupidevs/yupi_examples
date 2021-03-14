@@ -21,7 +21,17 @@ git clone https://github.com/yupidevs/yupi_examples
 And you should be able to run any of the provided examples like:
 
 ```
-python exampleXXX.py
+python example_XXX.py
 ```
 
 ## Description of current examples
+
+Examples are divided into two different categories: intro and example. The first is designed to cover the very basics of yupi, while the later is designed to illustrate a more complex integration of yupi tools in order to reproduce the results of an existing (or yet to come) scientific paper. 
+
+In this table you can easily find the examples that suit you more.
+
+| Filename        | Related API functions             | Description                       |
+| --------------- | --------------------------------- | --------------------------------- |
+| intro_001.py    | yupi.Trajectory                   | Creates a Trajectory using arrays |
+|                 | yupi.analyzing.plot_trajectories  | of x and y, then plot it          | 
+ 
