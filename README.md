@@ -30,8 +30,8 @@ Examples are divided into two different categories: intro and example. The first
 
 In this table you can easily find the examples that suit you more.
 
-| Filename        | Related API functions             | Description                       |
-| --------------- | --------------------------------- | --------------------------------- |
-| intro_001.py    | yupi.Trajectory                   | Creates a Trajectory using arrays |
-|                 | yupi.analyzing.plot_trajectories  | of x and y, then plot it          | 
- 
+| Filename        | Related API functions                                                   | Description                                                         |
+| --------------- | ----------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| intro_001.py    | yupi.Trajectory <br> yupi.analyzing.plot_trajectories                   | Creates a Trajectory using arrays of x and y, then plot it          | 
+| intro_002.py    | yupi.analyzing.plot_trajectories <br> yupi.generating.LangevinGenerator | Generates a list of Trajectory objects and plot them all            |
+
