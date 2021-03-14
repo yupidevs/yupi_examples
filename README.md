@@ -34,4 +34,4 @@ In this table you can easily find the examples that suit you more.
 | --------------- | ----------------------------------------------------------------------- | ------------------------------------------------------------------- |
 | intro_001.py    | yupi.Trajectory <br> yupi.analyzing.plot_trajectories                   | Creates a Trajectory using arrays of x and y, then plot it          | 
 | intro_002.py    | yupi.analyzing.plot_trajectories <br> yupi.generating.LangevinGenerator | Generates a list of Trajectory objects and plot them all            |
-
+| intro_003.py    | yupi.tracking.ROI<br> yupi.tracking.ObjectTracker<br> yupi.tracking.TrackingScenario<br> yupi.tracking.ColorMatching <br> yupi.analyzing.plot_trajectories | Extracts the trajectory of a blue ball inside a video of multiple balls and plots it |
