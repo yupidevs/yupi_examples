@@ -1,25 +1,16 @@
-import numpy as np
 from yupi.analyzing import plot_trajectories
-from yupi.generating import LangevinGenerator
+from yupi.generating import LatticeRandomWalkGenerator
+    
+# set parameter values
+T = 500
+dim = 2
+N = 5
+dt = 1
+actions = [1, 0, -1]
+prob = [[.5, .1, .4],
+        [.5, 0, .5]]
 
-# Define general Generator parameter values
-N = 3           # Number of trajectories
-dim = 2         # Number of dimensions
-T = 5 * 60      # Total simulation time
-dt = .05        # Time step
-
-# Define model-specific Generator values
-tau = 1.	
-kTm = 10
-scale = np.sqrt(2 * kTm / tau)
-pdf_name = 'normal'
-v0 = scale * np.random.randn(N)
-
-# Create the Generator object
-le = LangevinGenerator(T, dim, N, dt, tau, pdf_name, scale, v0=v0)
-
-# Generate the trajectories
-tr = le.generate()
-
-# Plot the results
+# get RandomWalk object and get position vectors
+rw = LatticeRandomWalkGenerator(T, dim, N, dt, actions, prob)
+tr = rw.generate()
 plot_trajectories(tr)
