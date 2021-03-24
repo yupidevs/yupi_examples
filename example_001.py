@@ -12,7 +12,6 @@
 
 import numpy as np
 import matplotlib.pyplot as plt
-from yupi import Trajectory
 from yupi.generating import LangevinGenerator
 import yupi.analyzing as ypa
 
