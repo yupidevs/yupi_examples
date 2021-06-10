@@ -29,7 +29,7 @@ template = cv2.imread(template_file)
 algorithm = TemplateMatching(template, threshold=0.7)
 trackers.append( ObjectTracker('temp_match', algorithm, ROI((50, 50))) )
 
-# Initialize FrameDifferencing tracker
+# Initialize OpticalFlow tracker
 algorithm = OpticalFlow(threshold=0.3, buffer_size=3)
 trackers.append( ObjectTracker('optical_flow', algorithm, ROI((50, 50))) )
 
