@@ -35,5 +35,5 @@ In this table you can easily find the examples that better suits you.
 | intro_001.py    | yupi.Trajectory <br> yupi.analyzing.plot_trajectories                   | Creates a Trajectory using arrays of x and y, then plot it          | 
 | intro_002.py    | yupi.analyzing.plot_trajectories <br> yupi.generating.LatticeRandomWalkGenerator | Generates a list of Trajectory objects and plot them all            |
 | intro_003.py    | yupi.tracking.ROI<br> yupi.tracking.ObjectTracker<br> yupi.tracking.TrackingScenario<br> yupi.tracking.ColorMatching <br> yupi.analyzing.plot_trajectories | Extracts the trajectory of a blue ball inside a video of multiple balls and plots it |
-
+| example_001.py  |  yupi.generating.LangevinGenerator <br> yupi.analyzing.plot_trajectories <br> yupi.analyzing.estimate_velocity_samples <br> yupi.analyzing.plot_velocity_hist <br> yupi.analyzing.estimate_turning_angles <br> yupi.analyzing.plot_angle_distribution <br> yupi.analyzing.estimate_msd  <br> yupi.analyzing.plot_msd  <br> yupi.analyzing.estimate_kurtosis <br> yupi.analyzing.plot_kurtosis <br> yupi.analyzing.estimate_vacf <br> yupi.analyzing.plot_vacf |  A simulation of the statistical properties for the motion of a lysozyme molecule in water. Several molecule trajectories are generated and later analyzed.   |
 
