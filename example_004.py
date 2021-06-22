@@ -2,7 +2,7 @@ from yupi.tracking.trackers import ROI, ObjectTracker, TrackingScenario
 from yupi.tracking.undistorters import RemapUndistorter
 from yupi.tracking.algorithms import ColorMatching
 from yupi.analyzing.visualization import plot_trajectories
-from yupi import Trajectory
+from numpy import pi
 
 video_path = 'resources/videos/Diaz2020.MP4'
 camera_file = 'resources/cameras/gph3+.npz'
@@ -27,4 +27,14 @@ scenario = TrackingScenario([cyan, magenta],
 retval, tl = scenario.track(video_path, pix_per_m=2826, start_in_frame=200)
 plot_trajectories(tl)
 
-Trajectory.save_trajectories(tl)
+
+# Rotate trajectories to be consistent with gravity  
+tl[0].add_polar_offset(0, - pi / 2)
+tl[1].add_polar_offset(0, - pi / 2)
+
+# Center trajectories respect the center of the intruder
+off = tl[0].r[0]
+tl = [t - off for t in tl]
+
+# Show a plot of the conected components of the tracking
+plot_trajectories(tl, line_style='-o', connected=True, color=['blue', 'red'])
