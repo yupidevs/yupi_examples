@@ -34,7 +34,8 @@ tl[1].add_polar_offset(0, - pi / 2)
 
 # Center trajectories respect the center of the intruder
 off = tl[0].r[0]
-tl = [t - off for t in tl]
+tl[1] -= off
+tl[0] -= off
 
 # Show a plot of the conected components of the tracking
 plot_trajectories(tl, line_style='-o', connected=True, color=['blue', 'red'])
