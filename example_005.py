@@ -1,7 +1,7 @@
-from yupi.tracking.trackers import ROI, ObjectTracker, CameraTracker, TrackingScenario
-from yupi.tracking.undistorters import RemapUndistorter
-from yupi.tracking.algorithms import ColorMatching
-from yupi.analyzing.visualization import plot_trajectories
+from yupi.tracking import ROI, ObjectTracker, CameraTracker, TrackingScenario
+from yupi.tracking import RemapUndistorter
+from yupi.tracking import ColorMatching
+from yupi.analyzing import plot_trajectories
 
 
 video_path = 'resources/videos/Serrano2019.mp4'
