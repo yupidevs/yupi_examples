@@ -1,3 +1,28 @@
+"""
+Example 2:
+
+A comparison of different tracking methods over the same input video 
+where the camera is fixed at a constant distance from the plane 
+where an ant moves. 
+
+In the work of Frayle-Pérez et. al [1], the authors studied the 
+capabilities of different image processing algorithms that can be 
+used for image segmentation and tracking of the motion of insects 
+under controlled environments. In this example, we are going to 
+illustrate a comparison of a subset of these algorithms and evaluate 
+them using one of the videos from the original paper.
+
+A detailed explanation of this code can be found in:
+https://yupi.readthedocs.io/en/latest/examples/example2.html
+
+
+References
+----------
+[1] Frayle-Pérez, S., et al. "Chasing insects: a survey of tracking algorithms." 
+Revista Cubana de Fisica 34.1 (2017): 44-47.
+
+"""
+# Import dependencies
 import cv2
 from yupi.tracking import ROI, ObjectTracker, TrackingScenario
 from yupi.tracking import ColorMatching, FrameDifferencing
@@ -5,6 +30,7 @@ from yupi.tracking import BackgroundEstimator, BackgroundSubtraction
 from yupi.tracking import TemplateMatching, OpticalFlow
 from yupi.analyzing import plot_trajectories
 
+# Specify path to the required resources
 video_path = 'resources/videos/Frayle2017.mp4'
 template_file = 'resources/templates/ant_small.png'
 
