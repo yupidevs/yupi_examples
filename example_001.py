@@ -65,7 +65,7 @@ plt.figure(figsize=(9,5))
 
 # Spacial trajectories
 ax1 = plt.subplot(231)
-ypa.plot_trajectories(trajs, max_trajectories=5, legend=False, show=False)
+ypa.plot_trajectories(trajs[:5], legend=False, show=False)
 
 #  velocity histogram 
 v = ypa.estimate_velocity_samples(trajs, step=1)
