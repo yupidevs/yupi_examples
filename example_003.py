@@ -69,7 +69,7 @@ trackers.append( ObjectTracker('green led', algorithm, ROI((50, 50))) )
 scenario = TrackingScenario(trackers)
 
 # Track the video using the preconfigured scenario
-retval, tl = scenario.track(video_path, pix_per_m=4441, start_in_frame=160, end_in_frame=210)
+retval, tl = scenario.track(video_path, pix_per_m=4441, start_frame=160, end_frame=210)
 
 # Computing the trajectory of the led referred to the center pivot
 center, led = tl

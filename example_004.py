@@ -58,7 +58,7 @@ scenario = TrackingScenario([cyan, magenta],
                             undistorter=undistorter)
 
 # Track the video using the preconfigured scenario
-retval, tl = scenario.track(video_path, pix_per_m=2826, start_in_frame=200)
+retval, tl = scenario.track(video_path, pix_per_m=2826, start_frame=200)
 plot_trajectories(tl)
 
 

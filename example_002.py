@@ -64,5 +64,5 @@ trackers.append( ObjectTracker('optical_flow', algorithm, ROI((50, 50))) )
 scenario = TrackingScenario(trackers)
 
 # Track the video using the preconfigured scenario
-retval, tl = scenario.track(video_path, pix_per_m=1024, start_in_frame=120)
+retval, tl = scenario.track(video_path, pix_per_m=1024, start_frame=120)
 plot_trajectories(tl)
