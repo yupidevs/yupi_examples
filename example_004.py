@@ -44,13 +44,13 @@ camera_file = 'resources/cameras/gph3+.npz'
 # Initialize image undistorter
 undistorter = RemapUndistorter(camera_file)
 
-# Initialize tracker for the cyan dot
+# Initialize tracker for the center dot
 algorithm1 = ColorMatching((70,40,20), (160,80,20)) # BGR
-cyan = ObjectTracker('cyan marker', algorithm1, ROI((50, 50)))
+cyan = ObjectTracker('center marker', algorithm1, ROI((50, 50)))
 
-# Initialize tracker for the magenta dot
+# Initialize tracker for the border dot
 algorithm2 = ColorMatching((30,20, 50), (95, 45,120))         
-magenta = ObjectTracker('magenta marker', algorithm2,  ROI((30, 50)))
+magenta = ObjectTracker('border marker', algorithm2,  ROI((30, 50)))
 
 
 # Initialize the Tracking scenario with the video
@@ -72,4 +72,4 @@ tl[1] -= off
 tl[0] -= off
 
 # Show a plot of the conected components of the tracking
-plot_trajectories(tl, line_style='-o', connected=True, color=['blue', 'red'])
+plot_trajectories(tl, line_style='-o', connected=True)
