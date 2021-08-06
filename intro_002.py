@@ -15,4 +15,4 @@ prob = [[.5, .1, .4],   # x-axis
 # Get RandomWalk object and get position vectors
 rw = RandomWalkGenerator(T, dim, N, dt, prob)
 tr = rw.generate()
-plot_2D(tr)
+plot_2D(tr, legend=None)
