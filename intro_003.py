@@ -1,6 +1,6 @@
 from yupi.tracking import ROI, ObjectTracker, TrackingScenario
 from yupi.tracking import ColorMatching
-from yupi.analyzing import plot_trajectories
+from yupi.graphics import plot_2D
 
 
 # Initialize main tracking objects
@@ -10,4 +10,4 @@ scenario = TrackingScenario([blue_ball])
 
 # Track the video using the preconfigured scenario
 retval, tl = scenario.track('resources/videos/demo.avi', pix_per_m=10)
-plot_trajectories(tl)
+plot_2D(tl)
