@@ -1,19 +1,36 @@
-# A simulation of the statistical properties for the motion of 
-# a lysozyme molecule in water is presented using `yupi` API. 
-# The simulation shows cualitatively the classical scaling laws of 
-# the Langevin theory to explain Brownian Motion (those for Mean 
-# Square Displacement or Velocity Autocorrelation Function). 
+"""
+A simulation of the statistical properties for the motion of
+a lysozyme molecule in water is presented using `yupi` API.
+The simulation shows cualitatively the classical scaling laws of
+the Langevin theory to explain Brownian Motion (those for Mean
+Square Displacement or Velocity Autocorrelation Function).
 
-# The example is structured as follows:
-# - Definition of parameters
-# - Dimenssionless equation
-# - Data analysis and plotting
-# - References
+The example is structured as follows:
+- Definition of parameters
+- Dimenssionless equation
+- Data analysis and plotting
+- References
+"""
 
 import numpy as np
 import matplotlib.pyplot as plt
-from yupi.generating import LangevinGenerator
-import yupi.analyzing as ypa
+from yupi.generators import LangevinGenerator
+from yupi.stats import (
+    msd,
+    speed_ensemble,
+    vacf,
+    turning_angles_ensemble,
+    kurtosis,
+    kurtosis_reference
+)
+from yupi.graphics import (
+    plot_2D,
+    plot_angles_hist,
+    plot_kurtosis,
+    plot_msd,
+    plot_vacf,
+    plot_velocity_hist
+)
 
 np.random.seed(0)
 
@@ -65,34 +82,35 @@ plt.figure(figsize=(9,5))
 
 # Spacial trajectories
 ax1 = plt.subplot(231)
-ypa.plot_trajectories(trajs[:5], legend=False, show=False)
+plot_2D(trajs[:5], legend=False, show=False)
 
-#  velocity histogram 
-v = ypa.estimate_velocity_samples(trajs, step=1)
+#  velocity histogram
+v = speed_ensemble(trajs, step=1)
 ax2 = plt.subplot(232)
-ypa.plot_velocity_hist(v, bins=20, show=False)
+plot_velocity_hist(v, bins=20, show=False)
 
-#  turning angles 
-theta = ypa.estimate_turning_angles(trajs)
+#  turning angles
+theta = turning_angles_ensemble(trajs)
 ax3 = plt.subplot(233, projection='polar')
-ypa.plot_angle_distribution(theta, show=False)
+plot_angles_hist(theta, show=False)
 
-#  mean square displacement 
+#  mean square displacement
 lag_msd = 30
-msd, msd_std = ypa.estimate_msd(trajs, time_avg=True, lag=lag_msd)
+msd, msd_std = msd(trajs, time_avg=True, lag=lag_msd)
 ax4 = plt.subplot(234)
-ypa.plot_msd(msd, msd_std, dt, lag=lag_msd, show=False)
+plot_msd(msd, msd_std, dt, lag=lag_msd, show=False)
 
 #  kurtosis
-kurtosis = ypa.estimate_kurtosis(trajs, time_avg=False, lag=30)
+kurtosis = kurtosis(trajs, time_avg=False, lag=30)
+kurt_ref = kurtosis_reference(trajs)
 ax5 = plt.subplot(235)
-ypa.plot_kurtosis(kurtosis, dt=dt, show=False)
+plot_kurtosis(kurtosis, kurtosis_ref=kurt_ref, dt=dt, show=False)
 
-#  velocity autocorrelation function 
+#  velocity autocorrelation function
 lag_vacf = 50
-vacf, _ = ypa.estimate_vacf(trajs, time_avg=True, lag=lag_vacf)
+vacf, _ = vacf(trajs, time_avg=True, lag=lag_vacf)
 ax6 = plt.subplot(236)
-ypa.plot_vacf(vacf, dt, lag_vacf, show=False)
+plot_vacf(vacf, dt, lag_vacf, show=False)
 
 # Generate plot
 plt.tight_layout()

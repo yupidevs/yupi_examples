@@ -1,34 +1,34 @@
 """
 Example 3:
 
-Tracking a scaled-size rover wheel moving over sand. 
+Tracking a scaled-size rover wheel moving over sand.
 The wheel is forced to move at a fixed angular velocity.
 The actual linear velocity is subsequently computed
-to evaluate how much does it differs from the ideal 
-velocity (a straight line assuming it does not slip 
-or sink). 
+to evaluate how much does it differs from the ideal
+velocity (a straight line assuming it does not slip
+or sink).
 
-The authors of [1] studied the motion of vehicles over 
-granular materials experimentally. In their work, they 
-report the analysis of the trajectories performed by a 
-scaled-size wheel while rolling over sand at two different 
-gravitational accelerations, exploiting the instrument 
-designed in [2]. This example aims to partially reproduce 
-some of the results shown in the paper using one of the 
+The authors of [1] studied the motion of vehicles over
+granular materials experimentally. In their work, they
+report the analysis of the trajectories performed by a
+scaled-size wheel while rolling over sand at two different
+gravitational accelerations, exploiting the instrument
+designed in [2]. This example aims to partially reproduce
+some of the results shown in the paper using one of the
 original videos provided by the authors.
 
-In the video, one can observe a wheel which is forced to 
-move over sand at a fixed angular velocity. In optimal 
-rolling conditions, one can expect the wheel to move at a 
-constant linear velocity. However, due to slippery and 
-shrinkage, the actual linear velocity differs from the 
-one expected under ideal conditions. To study the factors 
-that affect the wheel motion, the first step is quantifying 
-how different is the rolling process respect to the expected 
+In the video, one can observe a wheel which is forced to
+move over sand at a fixed angular velocity. In optimal
+rolling conditions, one can expect the wheel to move at a
+constant linear velocity. However, due to slippery and
+shrinkage, the actual linear velocity differs from the
+one expected under ideal conditions. To study the factors
+that affect the wheel motion, the first step is quantifying
+how different is the rolling process respect to the expected
 in ideal conditions.
 
-This example addresses the problem of capturing the trajectory 
-of the wheel and computing its linear velocity, and the 
+This example addresses the problem of capturing the trajectory
+of the wheel and computing its linear velocity, and the
 efficiency of the rolling process.
 
 A detailed explanation of this code can be found in:
@@ -37,17 +37,18 @@ https://yupi.readthedocs.io/en/latest/examples/example3.html
 
 References
 ----------
-[1] Amigó-Vega, J., et al. "Measuring the Performance of a Rover Wheel In 
-Martian Gravity." Revista Cubana de Física 36.1 (2019): 46-50.
-[2] Viera-López, G., et al. "Note: Planetary gravities made simple: Sample test 
-of a Mars rover wheel." Review of Scientific Instruments 88.8 (2017): 086107.
-
+[1] Amigó-Vega, J., et al. "Measuring the Performance of a Rover Wheel
+In Martian Gravity." Revista Cubana de Física 36.1 (2019): 46-50.
+[2] Viera-López, G., et al. "Note: Planetary gravities made simple:
+Sample test of a Mars rover wheel." Review of Scientific Instruments
+88.8 (2017): 086107.
 """
+
 # Import dependencies
 import cv2
 from yupi.tracking import ROI, ObjectTracker, TrackingScenario
 from yupi.tracking import ColorMatching, TemplateMatching
-from yupi.analyzing import plot_trajectories
+from yupi.graphics import plot_2D
 
 # Specify path to the required resources
 video_path = 'resources/videos/Viera2017.mp4'
@@ -74,13 +75,13 @@ retval, tl = scenario.track(video_path, pix_per_m=4441, start_frame=160, end_fra
 # Computing the trajectory of the led referred to the center pivot
 center, led = tl
 led_centered = led - center
-led_centered.id = 'led'
+led_centered.traj_id = 'led'
 
 # Computing the trajectory of the wheel referred to the center pivot
 wheel_centered = led_centered.copy()
 wheel_centered.add_polar_offset(0.039, 0)
-wheel_centered.id = 'wheel'
-plot_trajectories([wheel_centered, led_centered])
+wheel_centered.traj_id = 'wheel'
+plot_2D([wheel_centered, led_centered])
 
 # Computing the trajectory of the wheel referred to its initial position
 wheel = wheel_centered - wheel_centered.r[0]

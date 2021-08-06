@@ -1,5 +1,5 @@
-from yupi.analyzing import plot_trajectories
-from yupi.generating import RandomWalkGenerator
+from yupi.graphics import plot_2D
+from yupi.generators import RandomWalkGenerator
 
 # Set parameter values
 T = 500     # Total time (number of time steps if dt==1)
@@ -15,4 +15,4 @@ prob = [[.5, .1, .4],   # x-axis
 # Get RandomWalk object and get position vectors
 rw = RandomWalkGenerator(T, dim, N, dt, prob)
 tr = rw.generate()
-plot_trajectories(tr)
+plot_2D(tr)

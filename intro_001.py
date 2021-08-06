@@ -1,5 +1,5 @@
 from yupi import Trajectory
-from yupi.analyzing import plot_trajectory
+from yupi.graphics import plot_2D
 
 # Creation by assigning the axis directly
 
@@ -11,7 +11,7 @@ y = [0, 0, 0.98, 1.24, 0.69, -0.3, -1.23, -1.72, -1.63, -1.01, -0.06, 0.94]
 track = Trajectory(x=x, y=y, traj_id="Spiral")
 
 # Plot the results
-plot_trajectory(track, title='Assigning the axis directly')
+plot_2D(track, title='Assigning the axis directly')
 
 # Creation by assigning the dimensions data
 
@@ -25,7 +25,7 @@ dims = [
 track = Trajectory(dimensions=dims, traj_id="Spiral")
 
 # Plot the results
-plot_trajectory(track, title='Assigning the dimensions data')
+plot_2D(track, title='Assigning the dimensions data')
 
 # Creation by assigning the points data
 
@@ -38,4 +38,4 @@ points = [[0, 0], [1.0, 0], [0.63, 0.98], [-0.37, 1.24], [-1.24, 0.69],
 track = Trajectory(points=points, traj_id="Spiral")
 
 # Plot the results
-plot_trajectory(track, title='Assigning the points data')
+plot_2D(track, title='Assigning the points data')
