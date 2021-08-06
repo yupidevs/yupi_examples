@@ -1,9 +1,7 @@
 import numpy as np
 import yupi.stats
 import yupi.graphics
-from yupi.transformations import exp_convolutional_filter
 from yupi.generators import LangevinGenerator
-
 
 np.random.seed(0)
 
@@ -19,38 +17,32 @@ noise_scale = 0.1     # Scale of the noise pdf
 
 lg = LangevinGenerator(T, dim, N, dt, tau, noise_pdf, noise_scale)
 trajs = lg.generate()
-traj = trajs[0]
 
 
 # Spacial trajectories
 yupi.graphics.plot_2D(trajs[:10], legend=False)
 
-# Filter
-traj.traj_id = 'non filtered'
-smoothed_traj = exp_convolutional_filter(traj, 1, 'filtered')
-yupi.graphics.plot_2D([traj, smoothed_traj], legend=True)
-
-# Velocity histogram
+#  velocity histogram 
 v = yupi.stats.speed_ensemble(trajs, step=1)
 yupi.graphics.plot_velocity_hist(v, bins=20)
 
-# Turning angles
+#  turning angles 
 theta = yupi.stats.turning_angles_ensemble(trajs)
 yupi.graphics.plot_angles_hist(theta)
 
-# Mean square displacement
+#  mean square displacement 
 msd, msd_std = yupi.stats.msd(trajs, time_avg=True, lag=30)
 yupi.graphics.plot_msd(msd, msd_std, dt, lag=30)
 
-# Kurtosis
+#  kurtosis
+ref = yupi.stats.kurtosis_reference(trajs)
 kurtosis = yupi.stats.kurtosis(trajs, time_avg=False, lag=30)
-kurt_ref = yupi.stats.kurtosis_reference(trajs)
-yupi.graphics.plot_kurtosis(kurtosis, kurtosis_ref=kurt_ref, dt=dt)
+yupi.graphics.plot_kurtosis(kurtosis, kurtosis_ref=ref, dt=dt)
 
-# Velocity autocorrelation function
+#  velocity autocorrelation function 
 vacf, _ = yupi.stats.vacf(trajs, time_avg=True, lag=50)
 yupi.graphics.plot_vacf(vacf, dt, 50)
 
-# Power Spectral Density
-psd_mean, psd_std, omega = yupi.stats.psd(trajs, lag=200, omega=True)
-
+# power spectral density
+psd_mean, psd_std, omega = yupi.stats.psd(trajs, lag=150, omega=True)
+yupi.graphics.plot_psd(psd_mean, omega, psd_std)
