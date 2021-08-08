@@ -50,7 +50,7 @@ cyan = ObjectTracker('center marker', algorithm1, ROI((50, 50)))
 
 # Initialize tracker for the magenta dot
 algorithm2 = ColorMatching((30,20, 50), (95, 45,120))        
-magenta = ObjectTracker('magenta marker', algorithm2,  ROI((30, 50)))
+magenta = ObjectTracker('border marker', algorithm2,  ROI((30, 50)))
 
 
 # Initialize the Tracking scenario with the video
@@ -72,4 +72,4 @@ tl[1] -= off
 tl[0] -= off
 
 # Show a plot of the conected components of the tracking
-plot_2D(tl, line_style='-o', connected=True, color=['blue', 'red'])
+plot_2D(tl, line_style='-o', connected=True)
