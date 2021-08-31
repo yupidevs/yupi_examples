@@ -1,10 +1,11 @@
 """
+Example 1:
+
 A simulation of the statistical properties for the motion of
 a lysozyme molecule in water is presented using `yupi` API.
 The simulation shows cualitatively the classical scaling laws of
 the Langevin theory to explain Brownian Motion (those for Mean
 Square Displacement or Velocity Autocorrelation Function).
-
 The example is structured as follows:
 - Definition of parameters
 - Dimenssionless equation
@@ -37,10 +38,10 @@ np.random.seed(0)
 ## 1. Simulation and model parameters
 
 # simulation parameters
-tt_adim = 30     # dimensionless total time
+tt_adim = 50     # dimensionless total time
+dt_adim = 1e-1   # dimensionaless time step
 dim = 2          # trajectory dimension
 N = 1000         # number of trajectories
-dt_adim = 1e-1   # dimensionaless time step
 
 # deterministic model parameters
 N0 = 6.02e23     # Avogadro's constant [1/mol]
@@ -58,21 +59,18 @@ tau = (alpha / m)**-1        # relaxation time
 v_eq = np.sqrt(k * T / m)    # equilibrium thermal velocity
 
 # intrinsic reference quantities
-vr = v_eq       # intrinsic reference velocity
 tr = tau        # intrinsic reference time
-lr = vr * tr    # intrinsic reference length
+vr = v_eq       # intrinsic reference velocity
 
-# statistical model parameters
-dt = dt_adim * tr                        # real time step
-noise_pdf = 'normal'                     # noise pdf
-noise_scale_adim = np.sqrt(2 * dt_adim)  # scale parameter of noise pdf
-v0_adim = np.random.randn(dim, N)        # initial dimensionaless speeds
+# recovering dimensions
+dt = dt_adim * tr                       # time step
+tt = tt_adim * tr                       # total time
+noise_scale = np.sqrt(2 / tau) * v_eq   # scale parameter of noise pdf
 
 
 ## 2. Simulating the process
 
-lg = LangevinGenerator(tt_adim, dim, N, dt_adim, v0=v0_adim)
-lg.set_scale(v_scale=vr, r_scale=lr, t_scale=tr)
+lg = LangevinGenerator(tt, dim, N, dt, tau, noise_scale)
 trajs = lg.generate()
 
 
@@ -81,40 +79,42 @@ trajs = lg.generate()
 plt.figure(figsize=(9,5))
 
 # Spacial trajectories
-ax1 = plt.subplot(231)
+plt.subplot(231)
 plot_2D(trajs[:5], legend=False, show=False)
 
 #  velocity histogram
-v = speed_ensemble(trajs, step=1)
-ax2 = plt.subplot(232)
-plot_velocity_hist(v, bins=20, show=False)
+v_norm = speed_ensemble(trajs)
+plt.subplot(232)
+plot_velocity_hist(v_norm, bins=20, show=False)
 
 #  turning angles
 theta = turning_angles_ensemble(trajs)
-ax3 = plt.subplot(233, projection='polar')
-plot_angles_hist(theta, show=False)
-
-#  mean square displacement
-lag_msd = 30
-msd, msd_std = msd(trajs, time_avg=True, lag=lag_msd)
-ax4 = plt.subplot(234)
-plot_msd(msd, msd_std, dt, lag=lag_msd, show=False)
-
-#  kurtosis
-kurtosis = kurtosis(trajs, time_avg=False, lag=30)
-kurt_ref = kurtosis_reference(trajs)
-ax5 = plt.subplot(235)
-plot_kurtosis(kurtosis, kurtosis_ref=kurt_ref, dt=dt, show=False)
+plt.subplot(233, projection='polar')
+plot_angles_hist(theta, bins=60, show=False)
 
 #  velocity autocorrelation function
 lag_vacf = 50
 vacf, _ = vacf(trajs, time_avg=True, lag=lag_vacf)
-ax6 = plt.subplot(236)
+plt.subplot(234)
 plot_vacf(vacf, dt, lag_vacf, show=False)
+
+#  mean square displacement
+lag_msd = 30
+msd, msd_std = msd(trajs, time_avg=True, lag=lag_msd)
+plt.subplot(235)
+plot_msd(msd, msd_std, dt, lag=lag_msd, show=False)
+
+#  kurtosis
+kurt, _ = kurtosis(trajs, time_avg=False)
+kurt_ref = kurtosis_reference(trajs)
+plt.subplot(236)
+plot_kurtosis(kurt, dt=dt, kurtosis_ref=kurt_ref, show=False)
+
 
 # Generate plot
 plt.tight_layout()
 plt.show()
+
 
 ## References
 # [1] Berg, Howard C. Random walks in biology. Princeton University Press, 1993.
