@@ -11,11 +11,10 @@ N = 500       # Number of random walkers
 dt = 0.5    # Time step
 
 tau = 2               # Relaxation time
-noise_pdf = 'normal'  # Noise probabilistic distribution function
 noise_scale = 0.1     # Scale of the noise pdf
 
 
-lg = LangevinGenerator(T, dim, N, dt, tau, noise_pdf, noise_scale)
+lg = LangevinGenerator(T, dim, N, dt, tau, noise_scale)
 trajs = lg.generate()
 
 
