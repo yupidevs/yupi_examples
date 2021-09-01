@@ -6,11 +6,12 @@ a lysozyme molecule in water is presented using `yupi` API.
 The simulation shows cualitatively the classical scaling laws of
 the Langevin theory to explain Brownian Motion (those for Mean
 Square Displacement or Velocity Autocorrelation Function).
-The example is structured as follows:
-- Definition of parameters
-- Dimenssionless equation
-- Data analysis and plotting
-- References
+
+
+References
+----------
+# [1] Berg, Howard C. Random walks in biology. Princeton University Press, 1993.
+# [2] Colvin, J. Ross. "The size and shape of lysozyme." Canadian Journal of Chemistry 30.11 (1952): 831-834.
 """
 
 import numpy as np
@@ -37,13 +38,7 @@ np.random.seed(0)
 
 ## 1. Simulation and model parameters
 
-# simulation parameters
-tt_adim = 50     # dimensionless total time
-dt_adim = 1e-1   # dimensionaless time step
-dim = 2          # trajectory dimension
-N = 1000         # number of trajectories
-
-# deterministic model parameters
+# Definition of physical Constants
 N0 = 6.02e23     # Avogadro's constant [1/mol]
 k = 1.38e-23     # Boltzmann's constant [J/mol.K]
 T = 300          # absolute temperature [K]
@@ -52,20 +47,21 @@ M = 14.1         # lysozyme molar mass [kg/mol] [1]
 d1 = 90e-10      # semi-major axis [m] [2]
 d2 = 18e-10      # semi-minor axis [m] [2]
 
+# Estimation of model parameters
 m = M / N0                   # mass of one molecule
 a = np.sqrt(d1/2 * d2/2)     # radius of the molecule
 alpha = 6 * np.pi * eta * a  # Stoke's coefficient
-tau = (alpha / m)**-1        # relaxation time
 v_eq = np.sqrt(k * T / m)    # equilibrium thermal velocity
 
-# intrinsic reference quantities
-tr = tau        # intrinsic reference time
-vr = v_eq       # intrinsic reference velocity
-
-# recovering dimensions
-dt = dt_adim * tr                       # time step
-tt = tt_adim * tr                       # total time
+# Estimation of generator parameters
+tau = (alpha / m)**-1                   # relaxation time
 noise_scale = np.sqrt(2 / tau) * v_eq   # scale parameter of noise pdf
+
+# Simulation parameters
+dim = 2                # trajectory dimension
+N = 1000               # number of trajectories
+dt = 1e-1 * tau        # time step
+tt = 50 * tau          # total time
 
 
 ## 2. Simulating the process
@@ -116,6 +112,3 @@ plt.tight_layout()
 plt.show()
 
 
-## References
-# [1] Berg, Howard C. Random walks in biology. Princeton University Press, 1993.
-# [2] Colvin, J. Ross. "The size and shape of lysozyme." Canadian Journal of Chemistry 30.11 (1952): 831-834.
