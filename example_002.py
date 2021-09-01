@@ -46,7 +46,7 @@ algorithm = FrameDifferencing(frame_diff_threshold=5)
 trackers.append( ObjectTracker('frame_diff', algorithm, ROI((50, 50))) )
 
 # Initialize BackgroundSubtraction tracker
-background = BackgroundEstimator.from_video(video_path, 20, 120)
+background = BackgroundEstimator.from_video(video_path, 20)
 algorithm = BackgroundSubtraction(background, background_threshold=5)
 trackers.append( ObjectTracker('bkgnd_sub', algorithm, ROI((50, 50))) )
 
@@ -64,5 +64,5 @@ trackers.append( ObjectTracker('optical_flow', algorithm, ROI((50, 50))) )
 scenario = TrackingScenario(trackers)
 
 # Track the video using the preconfigured scenario
-retval, tl = scenario.track(video_path, pix_per_m=1024, start_frame=120)
+retval, tl = scenario.track(video_path, pix_per_m=1024)
 plot_2D(tl)
