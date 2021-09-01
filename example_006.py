@@ -47,11 +47,7 @@ dd = DiffDiffGenerator(T, N=N, dt=dt)
 trajs = dd.generate()
 
 # Getting positions at different time intervals
-r = []
-for step in steps:
-    r_ = [traj.r.x[step] for traj in trajs]
-    r.append(r_)
-
+r = [[traj.r.x[step] for traj in trajs] for step in steps]
 
 # Plotting
 for r_, delta_t_ in zip(r, delta_t):
