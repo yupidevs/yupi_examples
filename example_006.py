@@ -46,7 +46,7 @@ steps = np.int32(delta_t / dt)     # Same but in steps of the simulation
 dd = DiffDiffGenerator(T, N=N, dt=dt)
 trajs = dd.generate()
 
-# Getting postions at different time intervals
+# Getting positions at different time intervals
 r = []
 for step in steps:
     r_ = [traj.r.x[step] for traj in trajs]
