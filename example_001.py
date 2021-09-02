@@ -38,7 +38,7 @@ np.random.seed(0)
 
 ## 1. Simulation and model parameters
 
-# Definition of physical Constants
+# Physical constants and system properties
 N0 = 6.02e23     # Avogadro's constant [1/mol]
 k = 1.38e-23     # Boltzmann's constant [J/mol.K]
 T = 300          # absolute temperature [K]
@@ -47,21 +47,21 @@ M = 14.1         # lysozyme molar mass [kg/mol] [1]
 d1 = 90e-10      # semi-major axis [m] [2]
 d2 = 18e-10      # semi-minor axis [m] [2]
 
-# Estimation of model parameters
-m = M / N0                   # mass of one molecule
-a = np.sqrt(d1/2 * d2/2)     # radius of the molecule
-alpha = 6 * np.pi * eta * a  # Stoke's coefficient
-v_eq = np.sqrt(k * T / m)    # equilibrium thermal velocity
+# Auxiliary model parameters
+m = M / N0                    # mass of one molecule
+a = np.sqrt(d1/2 * d2/2)      # radius of the molecule
+alpha = 6 * np.pi * eta * a   # Stoke's coefficient
+v_eq = np.sqrt(k * T / m)     # equilibrium thermal velocity
 
-# Estimation of generator parameters
+# Model/generator parameters
 tau = (alpha / m)**-1                   # relaxation time
 noise_scale = np.sqrt(2 / tau) * v_eq   # scale parameter of noise pdf
 
 # Simulation parameters
-dim = 2                # trajectory dimension
-N = 1000               # number of trajectories
-dt = 1e-1 * tau        # time step
-tt = 50 * tau          # total time
+dim = 2           # trajectory dimension
+N = 1000          # number of trajectories
+dt = 1e-1 * tau   # time step
+tt = 50 * tau     # total time
 
 
 ## 2. Simulating the process
@@ -110,5 +110,3 @@ plot_kurtosis(kurt, dt=dt, kurtosis_ref=kurt_ref, show=False)
 # Generate plot
 plt.tight_layout()
 plt.show()
-
-
