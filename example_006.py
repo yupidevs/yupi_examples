@@ -9,7 +9,7 @@ as the square of an Ornstein-Uhlenbeck process.
 
 The example is focused in computing the probability density function for
 displacements at different time instants for the case of a one-dimensional
-process, as shown analitically by Chechkin et al. in [1].
+process, as shown analitically by Chechkin et al. in [1] and discussed in [2].
 
 
 References
