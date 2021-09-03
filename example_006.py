@@ -45,11 +45,11 @@ trajs = dd.generate()
 time_instants = np.array([1, 10, 100])
 
 # Getting positions at different time instants
-r = [collect_at(trajs, 'rx', t, step_as_time=True) for t in time_instants]
+r = [collect_at(trajs, 'rx', time=t) for t in time_instants]
 
 # Plotting
 plot_hists(r, bins=30, density=True,
-    labels=[f't = {dt}' for dt in time_instants],
+    labels=[f't = {t}' for t in time_instants],
     xlabel='x',
     ylabel='PDF',
     legend=True,
