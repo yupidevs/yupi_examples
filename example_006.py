@@ -26,7 +26,7 @@ Chemistry Chemical Physics 20.46 (2018): 29018-29037.
 
 # Import dependencies
 import numpy as np
-from yupi.stats import collect_at
+from yupi.stats import collect_at_time
 from yupi.graphics import plot_hists
 from yupi.generators import DiffDiffGenerator
 
@@ -42,10 +42,10 @@ dd = DiffDiffGenerator(T, N=N, dt=dt)
 trajs = dd.generate()
 
 # Setting different time instants
-time_instants = np.array([1, 10, 100])
+time_instants = np.array([1.0, 10.0, 100.0])
 
 # Getting positions at different time instants
-r = [collect_at(trajs, 'rx', time=t) for t in time_instants]
+r = [collect_at_time(trajs, time=t, func=lambda r: r.x) for t in time_instants]
 
 # Plotting
 plot_hists(r, bins=30, density=True,
