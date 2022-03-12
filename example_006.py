@@ -30,7 +30,6 @@ from yupi.stats import collect_at_time
 from yupi.graphics import plot_hists
 from yupi.generators import DiffDiffGenerator
 
-np.random.seed(0)
 
 # Simulation parameters
 T = 1000   # Total time of the simulation
@@ -38,7 +37,7 @@ N = 5000   # Number of trajectories
 dt = .1    # Time step
 
 # Simulating the process
-dd = DiffDiffGenerator(T, N=N, dt=dt)
+dd = DiffDiffGenerator(T, N=N, dt=dt, seed=0)
 trajs = dd.generate()
 
 # Setting different time instants

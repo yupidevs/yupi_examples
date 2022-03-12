@@ -34,8 +34,6 @@ from yupi.graphics import (
     plot_velocity_hist
 )
 
-np.random.seed(0)
-
 ## 1. Simulation and model parameters
 
 # Physical constants and system properties
@@ -66,7 +64,7 @@ tt = 50 * tau     # total time
 
 ## 2. Simulating the process
 
-lg = LangevinGenerator(tt, dim, N, dt, tau, sigma)
+lg = LangevinGenerator(tt, dim, N, dt, tau, sigma, seed=0)
 trajs = lg.generate()
 
 
