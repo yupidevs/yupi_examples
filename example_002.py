@@ -39,25 +39,25 @@ trackers = []
 
 # Initialize ColorMatching tracker
 algorithm = ColorMatching((0,0,0), (150,150,150))
-trackers.append( ObjectTracker('color_matching', algorithm, ROI((50, 50))) )
+trackers.append( ObjectTracker('Ant (ColorMatching)', algorithm, ROI((50, 50))) )
 
 # Initialize FrameDifferencing tracker
 algorithm = FrameDifferencing(frame_diff_threshold=5)
-trackers.append( ObjectTracker('frame_diff', algorithm, ROI((50, 50))) )
+trackers.append( ObjectTracker('Ant (FrameDifferencing)', algorithm, ROI((50, 50))) )
 
 # Initialize BackgroundSubtraction tracker
 background = BackgroundEstimator.from_video(video_path, 20)
 algorithm = BackgroundSubtraction(background, background_threshold=5)
-trackers.append( ObjectTracker('bkgnd_sub', algorithm, ROI((50, 50))) )
+trackers.append( ObjectTracker('Ant (BackgroundSubtraction)', algorithm, ROI((50, 50))) )
 
 # Initialize TemplateMatching tracker
 template = cv2.imread(template_file)
 algorithm = TemplateMatching(template, threshold=0.7)
-trackers.append( ObjectTracker('temp_match', algorithm, ROI((50, 50))) )
+trackers.append( ObjectTracker('Ant (TemplateMatching)', algorithm, ROI((50, 50))) )
 
 # Initialize OpticalFlow tracker
 algorithm = OpticalFlow(threshold=0.3, buffer_size=3)
-trackers.append( ObjectTracker('optical_flow', algorithm, ROI((50, 50))) )
+trackers.append( ObjectTracker('Ant (OpticalFlow)', algorithm, ROI((50, 50))) )
 
 
 # Create a Tracking Scenario
