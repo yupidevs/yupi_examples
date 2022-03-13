@@ -60,11 +60,11 @@ trackers = []
 # Initialize TemplateMatching tracker for the central pivot
 template = cv2.imread(template_path)
 algorithm = TemplateMatching(template, threshold=0.5)
-trackers.append( ObjectTracker('center', algorithm, ROI((80, 80))) )
+trackers.append( ObjectTracker('Central Pivot', algorithm, ROI((80, 80))) )
 
 # Initialize ColorMatching tracker for the green led in the wheel
 algorithm = ColorMatching((80,170,90), (190,255,190))
-trackers.append( ObjectTracker('green led', algorithm, ROI((50, 50))) )
+trackers.append( ObjectTracker('Green LED', algorithm, ROI((50, 50))) )
 
 # Create a Tracking Scenario
 scenario = TrackingScenario(trackers)
