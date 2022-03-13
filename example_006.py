@@ -26,11 +26,10 @@ Chemistry Chemical Physics 20.46 (2018): 29018-29037.
 
 # Import dependencies
 import numpy as np
-from yupi.stats import collect
+from yupi.stats import collect_at_time
 from yupi.graphics import plot_hists
 from yupi.generators import DiffDiffGenerator
 
-np.random.seed(0)
 
 # Simulation parameters
 T = 1000   # Total time of the simulation
@@ -38,14 +37,14 @@ N = 5000   # Number of trajectories
 dt = .1    # Time step
 
 # Simulating the process
-dd = DiffDiffGenerator(T, N=N, dt=dt)
+dd = DiffDiffGenerator(T, N=N, dt=dt, seed=0)
 trajs = dd.generate()
 
 # Setting different time instants
-time_instants = np.array([1, 10, 100])
+time_instants = np.array([1.0, 10.0, 100.0])
 
 # Getting positions at different time instants
-r = [collect(trajs, at=float(t)) for t in time_instants]
+r = [collect_at_time(trajs, time=t, func=lambda r: r.x) for t in time_instants]
 
 # Plotting
 plot_hists(r, bins=30, density=True,
