@@ -62,9 +62,9 @@ retval, tl = scenario.track(video_path, pix_per_m=2826, start_frame=200)
 plot_2D(tl)
 
 
-# Rotate trajectories to be consistent with gravity 
-tl[0].rotate(- pi / 2)
-tl[1].rotate(- pi / 2)
+# Rotate trajectories to be consistent with gravity
+tl[0].rotate2d(- pi / 2)
+tl[1].rotate2d(- pi / 2)
 
 # Center trajectories respect the center of the intruder
 off = tl[0].r[0]

@@ -83,8 +83,8 @@ plot_velocity_hist(v_norm, bins=20, show=False)
 
 #  turning angles
 theta = turning_angles_ensemble(trajs)
-plt.subplot(233, projection='polar')
-plot_angles_hist(theta, bins=60, show=False)
+ax3 = plt.subplot(233, projection='polar')
+plot_angles_hist(theta, bins=60, ax=ax3, show=False)
 
 #  velocity autocorrelation function
 lag_vacf = 50
