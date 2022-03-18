@@ -41,5 +41,5 @@ vacf, _ = yupi.stats.vacf(trajs, time_avg=True, lag=50)
 yupi.graphics.plot_vacf(vacf, dt, 50)
 
 # Power spectral density
-psd_mean, psd_std, omega = yupi.stats.psd(trajs, lag=150, omega=True)
-yupi.graphics.plot_psd(psd_mean, omega, psd_std)
+psd_mean, psd_std, frec = yupi.stats.psd(trajs, lag=150)
+yupi.graphics.plot_psd(psd_mean, frec, psd_std)
