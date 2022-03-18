@@ -97,7 +97,7 @@ eff = v_meas/v_opt
 
 # Plotting the linear displacement of the wheel
 import matplotlib.pyplot as plt
-plt.plot(wheel.t[1:], eff)
+plt.plot(wheel.t, eff)
 plt.xlabel('time [s]')
 plt.ylabel('efficiency')
 plt.show()
