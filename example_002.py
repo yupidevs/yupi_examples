@@ -58,7 +58,6 @@ trackers.append(ObjectTracker("temp_match", algorithm, ROI((50, 50), scale=0.5))
 algorithm = OpticalFlow(threshold=0.3, buffer_size=3)
 trackers.append(ObjectTracker("optical_flow", algorithm, ROI((50, 50), scale=0.5)))
 
-
 # Create a Tracking Scenario
 scenario = TrackingScenario(trackers, preview_scale=0.5)
 
