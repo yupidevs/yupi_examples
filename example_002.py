@@ -1,66 +1,60 @@
 """
-Example 2:
+Example 6
 
-A comparison of different tracking methods over the same input video
-where the camera is fixed at a constant distance from the plane
-where an ant moves.
+A model framework of a diffusion process with fluctuating diffusivity
+is presented. A Brownian but non-Gaussian diffusion by means of a coupled
+set of stochastic differential equations is predicted. Position is
+described by an overdamped Langevin equation and the diffusion coefficient
+as the square of an Ornstein-Uhlenbeck process.
 
-In the work of Frayle-Pérez et. al [1], the authors studied the
-capabilities of different image processing algorithms that can be
-used for image segmentation and tracking of the motion of insects
-under controlled environments. In this example, we are going to
-illustrate a comparison of a subset of these algorithms and evaluate
-them using one of the videos from the original paper.
-
-A detailed explanation of this code can be found in:
-https://yupi.readthedocs.io/en/latest/examples/example2.html
+The example is focused in computing the probability density function for
+displacements at different time instants for the case of a one-dimensional
+process, as shown analitically by Chechkin et al. in [1] and discussed in [2].
 
 
 References
 ----------
-[1] Frayle-Pérez, S., et al. "Chasing insects: a survey of tracking algorithms."
-Revista Cubana de Fisica 34.1 (2017): 44-47.
+[1] Chechkin, Aleksei V., et al. "Brownian yet non-Gaussian diffusion:
+from superstatistics to subordination of diffusing diffusivities."
+Physical Review X 7.2 (2017): 021002.
 
+[2] Thapa, Samudrajit, et al. "Bayesian analysis of single-particle
+tracking data using the nested-sampling algorithm: maximum-likelihood
+model selection applied to stochastic-diffusivity data." Physical
+Chemistry Chemical Physics 20.46 (2018): 29018-29037.
 """
+
 # Import dependencies
-import cv2
-from yupi.graphics import plot_2D
-from yupi.tracking import (ROI, BackgroundEstimator, BackgroundSubtraction,
-                           ColorMatching, FrameDifferencing, ObjectTracker,
-                           OpticalFlow, TemplateMatching, TrackingScenario)
+import numpy as np
+from yupi.stats import collect_at_time
+from yupi.graphics import plot_hists
+from yupi.generators import DiffDiffGenerator
 
-# Specify path to the required resources
-video_path = "resources/videos/Frayle2017.mp4"
-template_file = "resources/templates/ant_small.png"
 
-# Initialize main tracking objects
-trackers = []
+# Simulation parameters
+T = 1000   # Total time of the simulation
+N = 5000   # Number of trajectories
+dt = .1    # Time step
 
-# Initialize ColorMatching tracker
-algorithm = ColorMatching((0, 0, 0), (150, 150, 150))
-trackers.append(ObjectTracker("color_matching", algorithm, ROI((50, 50), scale=0.5)))
+# Simulating the process
+dd = DiffDiffGenerator(T, N=N, dt=dt, seed=0)
+trajs = dd.generate()
 
-# Initialize FrameDifferencing tracker
-algorithm = FrameDifferencing(frame_diff_threshold=5)
-trackers.append(ObjectTracker("frame_diff", algorithm, ROI((50, 50), scale=0.5)))
+# Setting different time instants
+time_instants = np.array([1.0, 10.0, 100.0])
 
-# Initialize BackgroundSubtraction tracker
-background = BackgroundEstimator.from_video(video_path, 20)
-algorithm = BackgroundSubtraction(background, background_threshold=5)
-trackers.append(ObjectTracker("bkgnd_sub", algorithm, ROI((50, 50), scale=0.5)))
+# Getting positions at different time instants
+r = [collect_at_time(trajs, time=t, func=lambda r: r.x) for t in time_instants]
 
-# Initialize TemplateMatching tracker
-template = cv2.imread(template_file)
-algorithm = TemplateMatching(template, threshold=0.7)
-trackers.append(ObjectTracker("temp_match", algorithm, ROI((50, 50), scale=0.5)))
-
-# Initialize OpticalFlow tracker
-algorithm = OpticalFlow(threshold=0.3, buffer_size=3)
-trackers.append(ObjectTracker("optical_flow", algorithm, ROI((50, 50), scale=0.5)))
-
-# Create a Tracking Scenario
-scenario = TrackingScenario(trackers, preview_scale=0.5)
-
-# Track the video using the preconfigured scenario
-retval, tl = scenario.track(video_path, pix_per_m=1024)
-plot_2D(tl)
+# Plotting
+plot_hists(r, bins=30, density=True,
+    labels=[f't = {t}' for t in time_instants],
+    xlabel='x',
+    ylabel='PDF',
+    legend=True,
+    grid=True,
+    yscale='log',
+    ylim=(1e-3, 1),
+    xlim=(-20, 20),
+    filled=True
+)
