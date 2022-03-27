@@ -18,7 +18,7 @@ pip install yupi
 Some of the examples are distributed as **jupyter** notebooks, so installing **jupyter** is also recommended:
 
 ```shell
-pip install notebook
+pip install jupyter
 ```
 
 ### Copying the examples
@@ -45,6 +45,8 @@ For the examples distributed as `.ipynb` files, run instead:
 jupyter notebook intro_XXX.ipynb
 ```
 
+> This will open a browser window with the notebook.
+
 ## Description of current examples
 
 Examples are divided into two different categories: introductory tutorials and advanced examples. The first is designed to cover the very basics of **yupi**, while the later is designed to illustrate a more complex integration of **yupi** tools in order to reproduce the results of published research.
@@ -54,10 +56,10 @@ In this table you can easily find the examples that better suits you.
 | Filename        | Related API functions                                                   | Description                                                         |
 | --------------- | ----------------------------------------------------------------------- | ------------------------------------------------------------------- |
 | intro_000.ipynb    | Almost every yupi function :)                                    | Showcases minimal examples of most of the yupi APIs in a jupyter notebook   |
-| intro_001.py    | yupi.Trajectory <br> yupi.graphics.plot_2D                              | Creates a Trajectory using arrays of x and y, then plot it          |
-| intro_002.py    | yupi.graphics.plot_2D <br> yupi.generators.RandomWalkGenerator          | Generates a list of Trajectory objects and plot them all            |
-| intro_003.py    | yupi.tracking.ROI<br> yupi.tracking.ObjectTracker<br> yupi.tracking.TrackingScenario<br> yupi.tracking.ColorMatching <br> yupi.graphics.plot_2D | Extracts the trajectory of a blue ball inside a video of multiple balls and plots it |
-| intro_004.py  |  yupi.generators.LangevinGenerator <br> yupi.graphics.plot_2D <br> yupi.stats.speed_ensemble <br> yupi.graphics.plot_velocity_hist <br> yupi.stats.turning_angles_ensemble <br> yupi.graphics.plot_angles_hist <br> yupi.stats.msd  <br> yupi.graphics.plot_msd  <br> yupi.stats.kurtosis <br> yupi.graphics.plot_kurtosis <br> yupi.stats.vacf <br> yupi.graphics.plot_vacf <br> yupi.stats.psd <br> yupi.graphics.plot_psd  |  A general showcase of the stats and graphics modules.   |
+| intro_001.ipynb    | yupi.Trajectory <br> yupi.graphics.plot_2D                              | Creates a Trajectory using arrays of x and y, then plot it          |
+| intro_002.ipynb    | yupi.graphics.plot_2D <br> yupi.generators.RandomWalkGenerator          | Generates a list of Trajectory objects and plot them all            |
+| intro_003.ipynb    | yupi.tracking.ROI<br> yupi.tracking.ObjectTracker<br> yupi.tracking.TrackingScenario<br> yupi.tracking.ColorMatching <br> yupi.graphics.plot_2D | Extracts the trajectory of a blue ball inside a video of multiple balls and plots it |
+| intro_004.ipynb  |  yupi.generators.LangevinGenerator <br> yupi.graphics.plot_2D <br> yupi.stats.speed_ensemble <br> yupi.graphics.plot_velocity_hist <br> yupi.stats.turning_angles_ensemble <br> yupi.graphics.plot_angles_hist <br> yupi.stats.msd  <br> yupi.graphics.plot_msd  <br> yupi.stats.kurtosis <br> yupi.graphics.plot_kurtosis <br> yupi.stats.vacf <br> yupi.graphics.plot_vacf <br> yupi.stats.psd <br> yupi.graphics.plot_psd  |  A general showcase of the stats and graphics modules.   |
 | intro_005.ipynb    | yupi.Trajectory  <br> yupi.VelocityMethod  <br> yupi.WindowType    | Details the differences among the available methods in **yupi** to estimate velocity  |
 | example_001.py  |  yupi.generators.LangevinGenerator <br> yupi.graphics.plot_2D <br> yupi.stats.speed_ensemble <br> yupi.graphics.plot_velocity_hist <br> yupi.stats.turning_angles_ensemble <br> yupi.graphics.plot_angles_hist <br> yupi.stats.msd  <br> yupi.graphics.plot_msd  <br> yupi.stats.kurtosis <br> yupi.graphics.plot_kurtosis <br> yupi.stats.vacf <br> yupi.graphics.plot_vacf |  A simulation of the statistical properties for the motion of a lysozyme molecule in water. Several molecule trajectories are generated and later analyzed.   |
 | example_002.py  |  yupi.generators.DiffDiffGenerator <br> yupi.stats.collect <br> yupi.graphics.plot_hists |  A model framework of a diffusion process with fluctuating diffusivity is presented.  |
