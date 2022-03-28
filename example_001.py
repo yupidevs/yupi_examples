@@ -93,7 +93,7 @@ plt.subplot(234)
 plot_vacf(vacf, dt, lag_vacf, show=False)
 
 #  mean square displacement
-lag_msd = 30
+lag_msd = 50
 msd, msd_std = msd(trajs, time_avg=True, lag=lag_msd)
 plt.subplot(235)
 plot_msd(msd, msd_std, dt, lag=lag_msd, show=False)
