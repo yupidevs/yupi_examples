@@ -31,7 +31,7 @@ from yupi.graphics import (
     plot_kurtosis,
     plot_msd,
     plot_vacf,
-    plot_velocity_hist
+    plot_speed_hist
 )
 
 ## 1. Simulation and model parameters
@@ -76,10 +76,10 @@ plt.figure(figsize=(9,5))
 plt.subplot(231)
 plot_2D(trajs[:5], legend=False, show=False)
 
-#  velocity histogram
+#  speed histogram
 v_norm = speed_ensemble(trajs)
 plt.subplot(232)
-plot_velocity_hist(v_norm, bins=20, show=False)
+plot_speed_hist(v_norm, bins=20, show=False)
 
 #  turning angles
 theta = turning_angles_ensemble(trajs)
