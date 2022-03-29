@@ -50,9 +50,10 @@ m = M / N0                    # mass of one molecule
 a = np.sqrt(d1/2 * d2/2)      # radius of the molecule
 alpha = 6 * np.pi * eta * a   # Stoke's coefficient
 v_eq = np.sqrt(k * T / m)     # equilibrium thermal velocity
+tau = m / alpha               # relaxation time
 
 # Model/generator parameters
-tau = (alpha / m)**-1                   # relaxation time
+gamma = 1 / tau                   # drag parameter
 sigma = np.sqrt(2 / tau) * v_eq   # scale parameter of noise pdf
 
 # Simulation parameters
@@ -64,7 +65,7 @@ tt = 50 * tau     # total time
 
 ## 2. Simulating the process
 
-lg = LangevinGenerator(tt, dim, N, dt, tau, sigma, seed=0)
+lg = LangevinGenerator(tt, dim, N, dt, gamma, sigma, seed=0)
 trajs = lg.generate()
 
 
