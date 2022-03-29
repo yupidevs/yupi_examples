@@ -31,7 +31,7 @@ from yupi.graphics import (
     plot_kurtosis,
     plot_msd,
     plot_vacf,
-    plot_velocity_hist
+    plot_speed_hist
 )
 
 ## 1. Simulation and model parameters
@@ -50,9 +50,10 @@ m = M / N0                    # mass of one molecule
 a = np.sqrt(d1/2 * d2/2)      # radius of the molecule
 alpha = 6 * np.pi * eta * a   # Stoke's coefficient
 v_eq = np.sqrt(k * T / m)     # equilibrium thermal velocity
+tau = m / alpha               # relaxation time
 
 # Model/generator parameters
-tau = (alpha / m)**-1                   # relaxation time
+gamma = 1 / tau                   # drag parameter
 sigma = np.sqrt(2 / tau) * v_eq   # scale parameter of noise pdf
 
 # Simulation parameters
@@ -64,7 +65,7 @@ tt = 50 * tau     # total time
 
 ## 2. Simulating the process
 
-lg = LangevinGenerator(tt, dim, N, dt, tau, sigma, seed=0)
+lg = LangevinGenerator(tt, dim, N, dt, gamma, sigma, seed=0)
 trajs = lg.generate()
 
 
@@ -76,10 +77,10 @@ plt.figure(figsize=(9,5))
 plt.subplot(231)
 plot_2D(trajs[:5], legend=False, show=False)
 
-#  velocity histogram
+#  speed histogram
 v_norm = speed_ensemble(trajs)
 plt.subplot(232)
-plot_velocity_hist(v_norm, bins=20, show=False)
+plot_speed_hist(v_norm, bins=20, show=False)
 
 #  turning angles
 theta = turning_angles_ensemble(trajs)
@@ -93,7 +94,7 @@ plt.subplot(234)
 plot_vacf(vacf, dt, lag_vacf, show=False)
 
 #  mean square displacement
-lag_msd = 30
+lag_msd = 50
 msd, msd_std = msd(trajs, time_avg=True, lag=lag_msd)
 plt.subplot(235)
 plot_msd(msd, msd_std, dt, lag=lag_msd, show=False)
