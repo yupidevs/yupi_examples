@@ -46,13 +46,19 @@ Sample test of a Mars rover wheel." Review of Scientific Instruments
 
 # Import dependencies
 import cv2
-from yupi.tracking import ROI, ObjectTracker, TrackingScenario
-from yupi.tracking import ColorMatching, TemplateMatching
+import matplotlib.pyplot as plt
 from yupi.graphics import plot_2D
+from yupi.tracking import (
+    ROI,
+    ColorMatching,
+    ObjectTracker,
+    TemplateMatching,
+    TrackingScenario,
+)
 
 # Specify path to the required resources
-video_path = 'resources/videos/Viera2017.mp4'
-template_path = 'resources/templates/pivot.png'
+video_path = "resources/videos/Viera2017.mp4"
+template_path = "resources/templates/pivot.png"
 
 # Initialize main tracking objects
 trackers = []
@@ -60,11 +66,11 @@ trackers = []
 # Initialize TemplateMatching tracker for the central pivot
 template = cv2.imread(template_path)
 algorithm = TemplateMatching(template, threshold=0.5)
-trackers.append( ObjectTracker('Central Pivot', algorithm, ROI((80, 80))) )
+trackers.append(ObjectTracker("Central Pivot", algorithm, ROI((80, 80))))
 
 # Initialize ColorMatching tracker for the green led in the wheel
-algorithm = ColorMatching((80,170,90), (190,255,190))
-trackers.append( ObjectTracker('Green LED', algorithm, ROI((50, 50))) )
+algorithm = ColorMatching((80, 170, 90), (190, 255, 190))
+trackers.append(ObjectTracker("Green LED", algorithm, ROI((50, 50))))
 
 # Create a Tracking Scenario
 scenario = TrackingScenario(trackers)
@@ -74,14 +80,19 @@ retval, tl = scenario.track(video_path, pix_per_m=4441, start_frame=160, end_fra
 
 # Computing the trajectory of the led referred to the center pivot
 center, led = tl
-led_centered = led - center
-led_centered.traj_id = 'led'
+center_pos = center.r[0]
+led_centered = led - center_pos
+center -= center_pos
+led_centered.traj_id = "led"
 
 # Computing the trajectory of the wheel referred to the center pivot
 wheel_centered = led_centered.copy()
-wheel_centered.add_polar_offset(0.039, 0)
-wheel_centered.traj_id = 'wheel'
-plot_2D([wheel_centered, led_centered])
+wheel_centered.add_polar_offset(0.019, 0)
+wheel_centered.traj_id = "wheel"
+plot_2D([wheel_centered, led_centered], show=False, color=["#4499bb", "#44bb44"])
+plt.plot([center.r.x[0]], [center.r.y[0]], "o", color="#bb4444", label="center")
+plt.legend()
+plt.show()
 
 # Computing the trajectory of the wheel referred to its initial position
 wheel = wheel_centered - wheel_centered.r[0]
@@ -92,12 +103,11 @@ v_opt = 4 * 0.07
 # Computing the linear velocity by the results of the tracking
 v_meas = wheel.v.norm
 
-#Computing the efficiency
-eff = v_meas/v_opt
+# Computing the efficiency
+eff = v_meas / v_opt
 
 # Plotting the linear displacement of the wheel
-import matplotlib.pyplot as plt
 plt.plot(wheel.t, eff)
-plt.xlabel('time [s]')
-plt.ylabel('efficiency')
+plt.xlabel("time [s]")
+plt.ylabel("efficiency")
 plt.show()
