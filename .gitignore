@@ -144,9 +144,6 @@ videos
 # Cameras
 cameras
 
-# Datafiles
-*.json
-
 # Code editor
 .vscode
 .pylintrc
