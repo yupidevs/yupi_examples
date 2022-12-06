@@ -137,7 +137,6 @@ dmypy.json
 # Cython debug symbols
 cython_debug/
 
-
 # Videos
 videos
 
@@ -150,3 +149,5 @@ cameras
 
 # Poetry
 poetry.lock
+
+*.json
