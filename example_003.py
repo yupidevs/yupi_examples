@@ -47,7 +47,8 @@ Sample test of a Mars rover wheel." Review of Scientific Instruments
 # Import dependencies
 import cv2
 import matplotlib.pyplot as plt
-from yupi.graphics import plot_2D
+
+from yupi.graphics import plot_2d
 from yupi.tracking import (
     ROI,
     ColorMatching,
@@ -55,6 +56,7 @@ from yupi.tracking import (
     TemplateMatching,
     TrackingScenario,
 )
+from yupi.transformations import add_polar_offset
 
 # Specify path to the required resources
 video_path = "resources/videos/Viera2017.mp4"
@@ -87,9 +89,9 @@ led_centered.traj_id = "led"
 
 # Computing the trajectory of the wheel referred to the center pivot
 wheel_centered = led_centered.copy()
-wheel_centered.add_polar_offset(0.019, 0)
+add_polar_offset(wheel_centered, 0.019, 0)
 wheel_centered.traj_id = "wheel"
-plot_2D([wheel_centered, led_centered], show=False, color=["#4499bb", "#44bb44"])
+plot_2d([wheel_centered, led_centered], show=False, color=["#4499bb", "#44bb44"])
 plt.plot([center.r.x[0]], [center.r.y[0]], "o", color="#bb4444", label="center")
 plt.legend()
 plt.show()

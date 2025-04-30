@@ -1,5 +1,5 @@
 """
-Example 2:
+Example 6:
 
 A comparison of different tracking methods over the same input video
 where the camera is fixed at a constant distance from the plane
@@ -22,12 +22,22 @@ References
 Revista Cubana de Fisica 34.1 (2017): 44-47.
 
 """
+
 # Import dependencies
 import cv2
-from yupi.graphics import plot_2D
-from yupi.tracking import (ROI, BackgroundEstimator, BackgroundSubtraction,
-                           ColorMatching, FrameDifferencing, ObjectTracker,
-                           OpticalFlow, TemplateMatching, TrackingScenario)
+
+from yupi.graphics import plot_2d
+from yupi.tracking import (
+    ROI,
+    BackgroundEstimator,
+    BackgroundSubtraction,
+    ColorMatching,
+    FrameDifferencing,
+    ObjectTracker,
+    OpticalFlow,
+    TemplateMatching,
+    TrackingScenario,
+)
 
 # Specify path to the required resources
 video_path = "resources/videos/Frayle2017.mp4"
@@ -38,21 +48,29 @@ trackers = []
 
 # Initialize ColorMatching tracker
 algorithm = ColorMatching((0, 0, 0), (150, 150, 150))
-trackers.append(ObjectTracker("Ant (ColorMatching)", algorithm, ROI((50, 50), scale=0.5)))
+trackers.append(
+    ObjectTracker("Ant (ColorMatching)", algorithm, ROI((50, 50), scale=0.5))
+)
 
 # Initialize FrameDifferencing tracker
 algorithm = FrameDifferencing(frame_diff_threshold=5)
-trackers.append(ObjectTracker("Ant (FrameDifferencing)", algorithm, ROI((50, 50), scale=0.5)))
+trackers.append(
+    ObjectTracker("Ant (FrameDifferencing)", algorithm, ROI((50, 50), scale=0.5))
+)
 
 # Initialize BackgroundSubtraction tracker
 background = BackgroundEstimator.from_video(video_path, 20)
 algorithm = BackgroundSubtraction(background, background_threshold=5)
-trackers.append(ObjectTracker("Ant (BackgroundSubtraction)", algorithm, ROI((50, 50), scale=0.5)))
+trackers.append(
+    ObjectTracker("Ant (BackgroundSubtraction)", algorithm, ROI((50, 50), scale=0.5))
+)
 
 # Initialize TemplateMatching tracker
 template = cv2.imread(template_file)
 algorithm = TemplateMatching(template, threshold=0.7)
-trackers.append(ObjectTracker("Ant (TemplateMatching)", algorithm, ROI((50, 50), scale=0.5)))
+trackers.append(
+    ObjectTracker("Ant (TemplateMatching)", algorithm, ROI((50, 50), scale=0.5))
+)
 
 # Initialize OpticalFlow tracker
 algorithm = OpticalFlow(threshold=0.3, buffer_size=3)
@@ -63,4 +81,4 @@ scenario = TrackingScenario(trackers, preview_scale=0.5)
 
 # Track the video using the preconfigured scenario
 retval, tl = scenario.track(video_path, pix_per_m=1024)
-plot_2D(tl)
+plot_2d(tl)

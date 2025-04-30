@@ -1,5 +1,5 @@
 """
-Example 6
+Example 2:
 
 A model framework of a diffusion process with fluctuating diffusivity
 is presented. A Brownian but non-Gaussian diffusion by means of a coupled
@@ -26,19 +26,18 @@ Chemistry Chemical Physics 20.46 (2018): 29018-29037.
 
 # Import dependencies
 import numpy as np
-from yupi.stats import collect_at_time
-from yupi.graphics import plot_hists
 from yupi.generators import DiffDiffGenerator
-
+from yupi.graphics import plot_hists
+from yupi.stats import collect_at_time
 
 # Simulation parameters
-T = 1000   # Total time of the simulation
-N = 5000   # Number of trajectories
-dt = .1    # Time step
+T = 1000  # Total time of the simulation
+N = 5000  # Number of trajectories
+dt = 0.1  # Time step
 
 # Simulating the process
-dd = DiffDiffGenerator(T, N=N, dt=dt, seed=0)
-trajs = dd.generate()
+dd = DiffDiffGenerator(T=T, dt=dt, seed=0)
+trajs = dd.generate(N)
 
 # Setting different time instants
 time_instants = np.array([1.0, 10.0, 100.0])
@@ -47,14 +46,17 @@ time_instants = np.array([1.0, 10.0, 100.0])
 r = [collect_at_time(trajs, time=t, func=lambda r: r.x) for t in time_instants]
 
 # Plotting
-plot_hists(r, bins=30, density=True,
-    labels=[f't = {t}' for t in time_instants],
-    xlabel='x',
-    ylabel='PDF',
+plot_hists(
+    r,
+    bins=30,
+    density=True,
+    labels=[f"t = {t}" for t in time_instants],
+    xlabel="x",
+    ylabel="PDF",
     legend=True,
     grid=True,
-    yscale='log',
+    yscale="log",
     ylim=(1e-3, 1),
     xlim=(-20, 20),
-    filled=True
+    filled=True,
 )
